@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './components/Auth/Register';
+import Login from './components/Auth/Login';
+import HomePage from './Pages/HomePage';
+import PrivateRoute from './components/Auth/ProtectedRoute';
+
 
 function App() {
+  // const { currentUser } = useAuth();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        
+        {/* User Side Routes */}
+        <Route 
+          path="/" 
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }  
+        />
+        {/* <Route path="/hotel-details/:id" element={<HotelDetail />} />
+        <Route path="/booking-confirmation" element={<BookingConfirmation />} />
+        <Route path="/profile" element={<Profile />} /> */}
+        
+        {/* Admin Side Routes */}
+        {/* <Route path="/admin" element={
+            <AdminPrivateRoute>
+              <AdminDashboard />
+            </AdminPrivateRoute>
+          } 
+        />
+        <Route path='/reservations' element={<Reservations />} /> */}
+      </Routes>
+    </Router>
   );
 }
 
